@@ -44,7 +44,7 @@ public class AuthorController {
     }
 
     @DeleteMapping("/authors/{authorId}")
-    public AuthorsResponse deleteAuthor(@PathVariable Integer autorId) {
-        return mapper.toRest(service.deleteAuthor(autorId));
+    public AuthorsResponse deleteAuthor(@PathVariable Integer authorId) {
+        return mapper.toRest(service.deleteAuthor(authorId));
     }
 }

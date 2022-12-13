@@ -25,8 +25,8 @@ public class BookService {
         return repository.saveAll(toUpdate);
     }
 
-    //TODO-3: should I use Integer here or int ? Why ?
-    public BookEntity deleteBook(Integer id) {
+    //TODO-3: should I  use Integer here or int ? Why ?
+    public BookEntity deleteBook(int id) {
         /*
         TIPS: From the API, the Class Optional<T> is :
         A container object which may or may not contain a non-null value.
@@ -35,7 +35,7 @@ public class BookService {
 
         T is the type of the value, for example : here the class type is BookEntity
          */
-        Optional<BookEntity> optional = repository.findById(id);
+        Optional<BookEntity> optional = repository.findById(String.valueOf(id));
         if (optional.isPresent()) {
             repository.delete(optional.get());
             return optional.get();

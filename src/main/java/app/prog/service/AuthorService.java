@@ -1,8 +1,9 @@
 package app.prog.service;
 
-import app.prog.exception.NotFoundException;
-import app.prog.model.AuthorEntity;
+import app.prog.model.AuthorsEntity;
+import app.prog.model.BookEntity;
 import app.prog.repository.AuthorRepository;
+import app.prog.repository.BookRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,20 +15,29 @@ import java.util.Optional;
 public class AuthorService {
     private final AuthorRepository repository;
 
-    public List<AuthorEntity> getAuthors() {
+    public List<AuthorsEntity> getauthor() {
         return repository.findAll();
     }
 
-    public List<AuthorEntity> createAuthors(List<AuthorEntity> toCreate) {
+    public List<AuthorsEntity> createAuthor(List<AuthorsEntity> toCreate) {
         return repository.saveAll(toCreate);
     }
 
-    public List<AuthorEntity> updateAuthors(List<AuthorEntity> toUpdate) {
+    public List<AuthorsEntity> updateAuthor(List<AuthorsEntity> toUpdate) {
         return repository.saveAll(toUpdate);
     }
 
-    public AuthorEntity deleteAuthor(int id) {
-        Optional<AuthorEntity> optional = repository.findById(id);
+    //TODO-3: should I  use Integer here or int ? Why ?
+    public AuthorsEntity deleteAuthor(int id) {
+        /*
+        TIPS: From the API, the Class Optional<T> is :
+        A container object which may or may not contain a non-null value.
+        If a value is present, isPresent() returns true.
+        If no value is present, the object is considered empty and isPresent() returns false.
+
+        T is the type of the value, for example : here the class type is BookEntity
+         */
+        Optional<AuthorsEntity> optional = repository.findById(String.valueOf(id));
         if (optional.isPresent()) {
             repository.delete(optional.get());
             return optional.get();
@@ -40,7 +50,7 @@ public class AuthorService {
         Link 1 : https://www.baeldung.com/spring-response-entity
         Link 2 : https://www.baeldung.com/exception-handling-for-rest-with-spring
          */
-            throw new NotFoundException("AuthorEntity." + id + " not found");
+            throw new RuntimeException("AuthorsEntity." + id + " not found");
         }
     }
 }
